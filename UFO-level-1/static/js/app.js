@@ -14,6 +14,8 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// Use d3 to update each cell's text with
+// UFO report values (date/time, city, state, country, shape, duration, and comment)
 function populateData(data) {
     data.forEach((ufoReport) => {
         var row = tbody.append("tr");
@@ -42,41 +44,24 @@ function populateData(data) {
 
 populateData(tableData);
 
-// Use d3 to update each cell's text with
-// UFO report values (date/time, city, state, country, shape, duration, and comment)
-// tableData.forEach((ufoReport) => {
-//     var row = tbody.append("tr");
-//     Object.entries(ufoReport).forEach(([key, value]) => {
-//         if (key === 'state' || key === 'country') {
-//             var upperCase = value.toUpperCase();
-//             var cell = row.append("td");
-//             cell.text(upperCase);
-//             cell.style("text-align", "center");
-//         } else if (key === 'city' || key === 'shape') {
-//             var capText = capitalizeFirstLetter(value)
-//             var cell = row.append("td");
-//             cell.text(capText);
-//             cell.style("text-align", "center");
-//         } else if (key === 'durationMinutes') {
-//             var cell = row.append("td");
-//             cell.text(value);
-//             cell.style("text-align", "right");
-//         } else {
-//             var cell = row.append("td");
-//             cell.text(value);
-//         }
-//     });
-// });
-
 // Select the button
-var button = d3.select("#filter-btn");
+var filterButton = d3.select("#filter-btn");
+var resetButton = d3.select("#reset-btn")
 
 // Select the form
 var form = d3.select("form");
 
 // Create event handlers 
-button.on("click", runEnter);
+filterButton.on("click", runEnter);
 form.on("submit", runEnter);
+resetButton.on("click", runDefault);
+
+// Complete the event handler function for the form
+function runDefault() {
+    var dataTabledefault = d3.selectAll("tbody>tr")
+    dataTabledefault.html("")
+    populateData(tableData);
+};
 
 // Complete the event handler function for the form
 function runEnter() {
@@ -99,30 +84,13 @@ function runEnter() {
 
     // Condition if user inputs date that doesn't exist
     if (filteredData.length === 0) {
-        var row = tbody.append("tr");
-        row.text(`NO MATCHING DATE: ${inputValue}`)
+        if (inputValue = " ") {
+            populateData(tableData);
+        } else {
+            var row = tbody.append("tr");
+            row.text(`NO MATCHING DATE: ${inputValue}`);
+        }
     } else {
         populateData(filteredData)
     }
-    // filteredData.forEach((ufoReport) => {
-    //     var row = tbody.append("tr");
-    //     Object.entries(ufoReport).forEach(([key, value]) => {
-    //         if (key === 'state' || key === 'country') {
-    //             var upperCase = value.toUpperCase();
-    //             var cell = row.append("td");
-    //             cell.text(upperCase);
-    //             cell.style("text-align", "center");
-    //         } else if (key === 'city' || key === 'shape') {
-    //             var capText = capitalizeFirstLetter(value)
-    //             var cell = row.append("td");
-    //             cell.text(capText);
-    //             cell.style("text-align", "center");
-    //         } else if (key === 'durationMinutes') {
-    //             var cell = row.append("td");
-    //             cell.text(value);
-    //             cell.style("text-align", "right");
-    //         } else {
-    //             var cell = row.append("td");
-    //             cell.text(value);
-    //         };
 };
