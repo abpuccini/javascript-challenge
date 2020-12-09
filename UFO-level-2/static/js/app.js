@@ -85,6 +85,7 @@ var form = d3.select("form");
 // Create event handlers 
 filterButton.on("click", runEnter);
 form.on("submit", runEnter);
+form.on("change", runEnter);
 resetButton.on("click", runDefault);
 
 // Complete the event handler function for the form
@@ -95,6 +96,10 @@ function runDefault() {
 
     // Get the value by ID of the input element and replace it with ""
     document.getElementById("datetime").value = "";
+    document.getElementById("city").value = "";
+    document.getElementById("state").value = "";
+    document.getElementById("country").value = "";
+    document.getElementById("shape").value = "";
 
     // Modify the text of an HTML element
     var dataTabledefault = d3.selectAll("tbody>tr");
@@ -111,13 +116,27 @@ function runEnter() {
     d3.event.preventDefault();
 
     // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#datetime");
+    var inputDate = d3.select("#datetime");
+    var inputCity = d3.select("#city");
+    var inputState = d3.select("#state");
+    var inputCountry = d3.select("#country");
+    var inputShape = d3.select("#shape");
 
     // Get the value property of the input element
-    var inputValue = inputElement.property("value");
+    var inputValueDate = inputDate.property("value");
+    var inputValueCity = inputCity.property("value").toLowerCase();
+    var inputValueState = inputState.property("value").toLowerCase();
+    var inputValueCountry = inputCountry.property("value").toLowerCase();
+    var inputValueShape = inputShape.property("value").toLowerCase();
 
-    // Filter 
-    var filteredData = tableData.filter(event => event.datetime === inputValue);
+    // Filter data with inputs 
+    var filteredData = tableData.filter(event =>
+        (event.datetime === inputValueDate || !inputValueDate) &&
+        (event.city === inputValueCity || !inputValueCity) &&
+        (event.state === inputValueState || !inputValueState) &&
+        (event.country === inputValueCountry || !inputValueCountry) &&
+        (event.shape === inputValueShape || !inputValueShape)
+    )
 
     // Select All table rows in table body
     var dataTable = d3.selectAll("tbody>tr")
@@ -128,8 +147,9 @@ function runEnter() {
     // Condition if user inputs date that doesn't exist
     if (filteredData.length === 0) {
         var row = tbody.append("tr");
-        row.text(`NO MATCHING DATE: ${inputValue}`);
+        row.text(`NO MATCHING DATA`);
     } else {
         populateData(filteredData)
     }
 };
+
