@@ -4,15 +4,21 @@ var tableData = data;
 // Get a reference to the table body
 var tbody = d3.select("tbody");
 
-// var textCenter = "duration"
-// var textCap = ["state", "country"]
-// var textUpper = ["city", "shape"]
-
-// Make the first letter to uppercase
 // Source: https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
+// Make all letters to uppercase
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
+};
+
+// Make the first letter to uppercase
+function ucFirstAllWords(str) {
+    var word = str.split(" ");
+    for (var i = 0; i < word.length; i++) {
+        var j = word[i].charAt(0).toUpperCase();
+        word[i] = j + word[i].substr(1);
+    }
+    return word.join(" ");
+};
 
 // Create function and use d3 to update each cell's text with
 // UFO report values (date/time, city, state, country, shape, duration, and comment)
@@ -43,10 +49,21 @@ function populateData(data) {
                 cell.style("text-align", "center");
 
                 // Apply if condition to capture data    
-            } else if (key === 'city' || key === 'shape') {
+            } else if (key === 'city') {
+
+                // Make value in cell to upper case for first letter each word
+                var capEachword = ucFirstAllWords(value);
+
+                // Append valued in each column with style
+                var cell = row.append("td");
+                cell.text(capEachword);
+                cell.style("text-align", "center");
+
+                // Apply if condition to capture data
+            } else if (key === 'shape') {
 
                 // Make value in cell to capitalized letter
-                var capText = capitalizeFirstLetter(value)
+                var capText = capitalizeFirstLetter(value);
 
                 // Append valued in each column with style
                 var cell = row.append("td");
@@ -77,7 +94,7 @@ populateData(tableData);
 
 // Select the button
 var filterButton = d3.select("#filter-btn");
-var resetButton = d3.select("#reset-btn")
+var resetButton = d3.select("#reset-btn");
 
 // Select the form
 var form = d3.select("form");
@@ -120,10 +137,10 @@ function runEnter() {
     var filteredData = tableData.filter(event => event.datetime === inputValue);
 
     // Select All table rows in table body
-    var dataTable = d3.selectAll("tbody>tr")
+    var dataTable = d3.selectAll("tbody>tr");
 
     // Replace html element with ""
-    dataTable.html("")
+    dataTable.html("");
 
     // Condition if user inputs date that doesn't exist
     if (filteredData.length === 0) {
