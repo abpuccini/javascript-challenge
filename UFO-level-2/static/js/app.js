@@ -14,27 +14,57 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// Use d3 to update each cell's text with
+// Create function and use d3 to update each cell's text with
 // UFO report values (date/time, city, state, country, shape, duration, and comment)
 function populateData(data) {
+
+    //`forEach` automatically iterates (loops) through each item and calls the supplied function for that item.
     data.forEach((ufoReport) => {
+
+        // Use D3 to select the table body
         var row = tbody.append("tr");
+
+        // Use `Object.entries` to get each UFO report value
         Object.entries(ufoReport).forEach(([key, value]) => {
+
+            // Apply if condition to capture data
             if (key === 'state' || key === 'country') {
+
+                // Make value in cell to uppercase
                 var upperCase = value.toUpperCase();
+
+                // Append one cell for each value for each key
                 var cell = row.append("td");
+
+                // Modify the text of an HTML element
                 cell.text(upperCase);
+
+                // Apply the style: text-align (center)
                 cell.style("text-align", "center");
+
+                // Apply if condition to capture data    
             } else if (key === 'city' || key === 'shape') {
+
+                // Make value in cell to capitalized letter
                 var capText = capitalizeFirstLetter(value)
+
+                // Append valued in each column with style
                 var cell = row.append("td");
                 cell.text(capText);
                 cell.style("text-align", "center");
+
+                // Apply if condition to capture data
             } else if (key === 'durationMinutes') {
+
+                // Append valued in each column with style
                 var cell = row.append("td");
                 cell.text(value);
                 cell.style("text-align", "right");
+
+                // Apply if condition to capture data
             } else {
+
+                // Append valued in each column
                 var cell = row.append("td");
                 cell.text(value);
             }
@@ -42,6 +72,7 @@ function populateData(data) {
     });
 };
 
+// Show all data
 populateData(tableData);
 
 // Select the button
@@ -58,8 +89,18 @@ resetButton.on("click", runDefault);
 
 // Complete the event handler function for the form
 function runDefault() {
-    var dataTabledefault = d3.selectAll("tbody>tr")
-    dataTabledefault.html("")
+
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
+
+    // Get the value by ID of the input element and replace it with ""
+    document.getElementById("datetime").value = "";
+
+    // Modify the text of an HTML element
+    var dataTabledefault = d3.selectAll("tbody>tr");
+    dataTabledefault.html("");
+
+    // Call the data
     populateData(tableData);
 };
 
@@ -78,18 +119,16 @@ function runEnter() {
     // Filter 
     var filteredData = tableData.filter(event => event.datetime === inputValue);
 
+    // Select All table rows in table body
     var dataTable = d3.selectAll("tbody>tr")
 
+    // Replace html element with ""
     dataTable.html("")
 
     // Condition if user inputs date that doesn't exist
     if (filteredData.length === 0) {
-        if (inputValue = " ") {
-            populateData(tableData);
-        } else {
-            var row = tbody.append("tr");
-            row.text(`NO MATCHING DATE: ${inputValue}`);
-        }
+        var row = tbody.append("tr");
+        row.text(`NO MATCHING DATE: ${inputValue}`);
     } else {
         populateData(filteredData)
     }
