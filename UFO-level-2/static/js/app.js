@@ -142,10 +142,10 @@ function runEnter() {
 
     // Get the value property of the input element
     var inputValueDate = inputDate.property("value");
-    var inputValueCity = inputCity.property("value").toLowerCase();
-    var inputValueState = inputState.property("value").toLowerCase();
-    var inputValueCountry = inputCountry.property("value").toLowerCase();
-    var inputValueShape = inputShape.property("value").toLowerCase();
+    var inputValueCity = inputCity.property("value").toLowerCase().trim();
+    var inputValueState = inputState.property("value").toLowerCase().trim();
+    var inputValueCountry = inputCountry.property("value").toLowerCase().trim();
+    var inputValueShape = inputShape.property("value").toLowerCase().trim();
 
     // Filter data with inputs 
     var filteredData = tableData.filter(event =>
