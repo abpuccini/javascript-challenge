@@ -8,11 +8,23 @@ Dataset: [UFO Sightings Data](UFO-level-1/js/data.js)
 
 ## Scripts
 
-### Part I: Automatic Table and Date Search
+### Data Management
+
+#### To capitalize all the letters
+
+This will apply to state and country columns as the example presented below.
+
+    ```java
+    var upperCase = value.toUpperCase();
+    ```
+
+### Automatic Table and Date Search
+
+Rendering table to html and enable date search.
 
 Script: [UFO-Level-1](UFO-level-1/js/app.js)
 
-### Part II: Multiple Search Categories
+### Multiple Search Categories
 
 Using multiple inputs; date, city, state, country and shape, to filter the table.
 
@@ -22,6 +34,8 @@ Script: [UFO-Level-2](UFO-level-2/js/app.js)
 
 Please visit UFO Sighting Page > [Click Here!](https://abpuccini.github.io/javascript-challenge/)
 
+---
+© [Atcharaporn B Puccini](https://www.linkedin.com/in/abpuccini/)
 
 
 
