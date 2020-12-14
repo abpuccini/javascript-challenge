@@ -10,7 +10,7 @@ Dataset: [UFO Sightings Data](UFO-level-1/js/data.js)
 
 ### Data Management
 
-- To capitalize all the letters
+- **To capitalize all the letters.**
 
     This will apply to state and country columns as the example presented below.
 
@@ -18,7 +18,7 @@ Dataset: [UFO Sightings Data](UFO-level-1/js/data.js)
         var upperCase = value.toUpperCase();
     ```
 
-- To capitalize only the first letter of each word.
+- **To capitalize only the first letter of each word.**
 
     This will apply to city column as the example presented below.
 
@@ -32,7 +32,7 @@ Dataset: [UFO Sightings Data](UFO-level-1/js/data.js)
         return word.join(" ");
         };
     ```
-- To capitalize only the first letter.
+- **To capitalize only the first letter.**
 
     This will apply to shape column.
 
@@ -42,7 +42,7 @@ Dataset: [UFO Sightings Data](UFO-level-1/js/data.js)
         };
     ```
 
-- To align text in each cell for each column; `center`, `right`
+- **To align text in each cell for each column; `center`, `right`**
 
     ```javascript
         cell.style("text-align", "center");
