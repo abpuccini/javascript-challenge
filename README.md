@@ -10,13 +10,43 @@ Dataset: [UFO Sightings Data](UFO-level-1/js/data.js)
 
 ### Data Management
 
-#### To capitalize all the letters
+- To capitalize all the letters
 
-This will apply to state and country columns as the example presented below.
+    This will apply to state and country columns as the example presented below.
 
-```javascript
-    var upperCase = value.toUpperCase();
-```
+    ```javascript
+        var upperCase = value.toUpperCase();
+    ```
+
+- To capitalize only the first letter of each word.
+
+    This will apply to city column as the example presented below.
+
+    ```javascript
+        function ucFirstAllWords(str) {
+        var word = str.split(" ");
+        for (var i = 0; i < word.length; i++) {
+            var j = word[i].charAt(0).toUpperCase();
+            word[i] = j + word[i].substr(1);
+        }
+        return word.join(" ");
+        };
+    ```
+- To capitalize only the first letter.
+
+    This will apply to shape column.
+
+    ```javascript
+        function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+        };
+    ```
+
+- To align text in each cell for each column; `center`, `right`
+
+    ```javascript
+        cell.style("text-align", "center");
+    ```
 
 ### Automatic Table and Date Search
 
