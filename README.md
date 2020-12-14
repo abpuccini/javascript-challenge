@@ -14,9 +14,9 @@ Dataset: [UFO Sightings Data](UFO-level-1/js/data.js)
 
 This will apply to state and country columns as the example presented below.
 
-    ```java
+```javascript
     var upperCase = value.toUpperCase();
-    ```
+```
 
 ### Automatic Table and Date Search
 
