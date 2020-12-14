@@ -133,8 +133,8 @@ function runEnter() {
     // Get the value property of the input element
     var inputValue = inputElement.property("value");
 
-    // Filter 
-    var filteredData = tableData.filter(event => event.datetime === inputValue);
+    // Filter data when user put date and populate all data if user leaves the input blank
+    var filteredData = tableData.filter(event => event.datetime === inputValue || !inputValue);
 
     // Select All table rows in table body
     var dataTable = d3.selectAll("tbody>tr");
@@ -147,6 +147,6 @@ function runEnter() {
         var row = tbody.append("tr");
         row.text(`NO MATCHING DATE: ${inputValue}`);
     } else {
-        populateData(filteredData)
+        populateData(filteredData);
     }
 };

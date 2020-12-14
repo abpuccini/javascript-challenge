@@ -140,14 +140,15 @@ function runEnter() {
     var inputCountry = d3.select("#country");
     var inputShape = d3.select("#shape");
 
-    // Get the value property of the input element
+    // Get the value property of the input element (.toLowerCase() > to simplify input, .trim() > to cut any blank space)
     var inputValueDate = inputDate.property("value");
     var inputValueCity = inputCity.property("value").toLowerCase().trim();
     var inputValueState = inputState.property("value").toLowerCase().trim();
     var inputValueCountry = inputCountry.property("value").toLowerCase().trim();
     var inputValueShape = inputShape.property("value").toLowerCase().trim();
 
-    // Filter data with inputs 
+    // Filter data with input or inputs 
+    // (src: https://github.com/Nova722/Javascript-Dom-Manipulation)
     var filteredData = tableData.filter(event =>
         (event.datetime === inputValueDate || !inputValueDate) &&
         (event.city === inputValueCity || !inputValueCity) &&
